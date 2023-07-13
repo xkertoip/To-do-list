@@ -43,3 +43,18 @@ export async function apiSearchTasks(query) {
         throw Error(String(request.status));
     }
 }
+
+export async function apiEndTask({ id, title, date, body}) {
+    const request = await fetch(apiUrl + "/" + id, {
+        method: "put",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({title, date, body})
+    })
+    if (request.ok) {
+        return request.json();
+    } else {
+        throw Error(String(request.status));
+    }
+}

@@ -124,5 +124,51 @@
                 </div>
             </div>
         </div>
+
+        <template id="taskTemplate">
+            <div class="task-inside">
+                <div class="task-header">
+                    {{#if editMode}}
+                    <input type="date" class="task-date" value="{{date}}">
+                    {{else}}
+                    <h3 class="task-date">{{date}}</h3>
+                    {{/if}}
+
+                    <div class="task-actions">
+                        {{#unless editMode}}
+                        <button class="task-edit" title="Edytuj zadanie">
+                            Edytuj
+                        </button>
+                        {{/unless}}
+                        <button class="task-delete" title="Usuń zadanie">
+                            Usuń
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    {{#if editMode}}
+                    <input type="text" class="task-title" value="{{title}}">
+                    {{else}}
+                    <div class="task-title">{{title}}</div>
+                    {{/if}}
+                </div>
+
+                <div>
+                    {{#if editMode}}
+                    <textarea class="task-body">{{body}}</textarea>
+                    {{else}}
+                    <div class="task-body">{{body}}</div>
+                    {{/if}}
+                </div>
+
+                {{#if editMode}}
+                <div class="task-footer">
+                    <button class="button task-edit-save">Zapisz</button>
+                    <button class="button task-edit-cancel button-secondary">Anuluj</button>
+                </div>
+                {{/if}}
+            </div>
+        </template>
     </body>
 </html>
