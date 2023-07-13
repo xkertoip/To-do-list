@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pl">
+    <head>
+        <meta charset="utf-8">
+        <title>ToDo</title>
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="/index.e8265c92.css"><script src="/index.59a40e7a.js" defer=""></script>
+    </head>
+    <body>
+        <div class="all">
+
+            <form class="form" id="todoForm">
+                <div class="form-row">
+                    <label for="todoTitle" class="form-label">Tytuł</label>
+                    <input type="text" class="form-control" id="todoTitle" name="todoTitle">
+                </div>
+                <div class="form-row">
+                    <label class="form-label" for="todoMessage">Treść</label>
+                    <textarea class="form-control form-control-textarea" name="todoMessage" id="todoMessage"></textarea>
+                </div>
+                <div class="form-row">
+                    <label for="todoDate" class="form-label">Data</label>
+                    <input type="date" class="form-control" id="todoDate" name="todoDate" value="2020-01-06">
+                </div>
+                <div class="form-row form-row-last">
+                    <button type="submit" class="button form-button">Dodaj</button>
+                </div>
+            </form>
+
+            <div class="task-list-cnt">
+                <form class="task-list-search">
+                    <input type="search" id="todoSearch">
+                </form>
+
+                <div class="task-list">
+
+                    <article class="task" data-id="6">
+                        <div class="task-inside">
+                            <div class="task-header">
+                                <h3 class="task-date">2020-01-06</h3>
+
+                                <div class="task-actions">
+                                    <button class="task-edit" title="Edytuj zadanie">
+                                        Edytuj
+                                    </button>
+                                    <button class="task-delete" title="Usuń zadanie">
+                                        Usuń
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="task-title">lorem ipsum</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="task-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis eaque accusamus voluptatum nisi reprehenderit voluptas cum praesentium porro</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="task task-edit-mode" data-id="4">
+                        <div class="task-inside">
+                            <div class="task-header">
+                                <label>
+                                    <span>Podaj datę</span>
+                                    <input type="date" class="task-date" value="2021-01-09">
+                                </label>
+
+                                <div class="task-actions">
+                                    <button class="task-delete" title="Usuń zadanie">
+                                        Usuń
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <label>
+                                    <span>Tytuł</span>
+                                    <input type="text" class="task-title" value="lorem ipsum">
+                                </label>
+                            </div>
+
+                            <div class="row">
+                                <label>
+                                    <span>Treść</span>
+                                    <textarea class="task-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis eaque accusamus voluptatum nisi reprehenderit voluptas cum praesentium porro facere expedita! Iure unde dolorem exercitationem adipisci voluptas nobis pariatur beatae ducimus.</textarea>
+                                </label>
+                            </div>
+
+                            <div class="task-footer">
+                                <button class="button task-edit-save">Zapisz</button>
+                                <button class="button task-edit-cancel button-secondary">Anuluj</button>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="task" data-id="8">
+                        <div class="task-inside">
+                            <div class="task-header">
+                                <h3 class="task-date">2021-01-08</h3>
+
+                                <div class="task-actions">
+                                    <button class="task-edit" title="Edytuj zadanie">
+                                        Edytuj
+                                    </button>
+                                    <button class="task-delete" title="Usuń zadanie">
+                                        Usuń
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="task-title">lorem ipsum</div>
+                            </div>
+
+                            <div class="row">
+                                <div class="task-body">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Reiciendis eaque accusamus voluptatum nisi reprehenderit voluptas cum praesentium porro facere expedita! Iure unde dolorem exercitationem adipisci voluptas nobis pariatur beatae ducimus.</div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
