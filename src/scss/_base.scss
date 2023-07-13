@@ -42,3 +42,32 @@ body {
         height: auto;
     }
 }
+.todo-cnt {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+}
+.todo-title {
+    text-align: center;
+    color: white;
+    margin-top: 2rem;
+}
+.scroll-top-btn {
+    position: fixed;
+    opacity: 0;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    border:none;
+    background-color: black;
+    color: white;
+    box-shadow: 0 2.8px 2.2px #00000005, 0 6.7px 5.3px #00000007, 0 12.5px 10px #00000009, 0 22.3px 17.9px #0000000b, 0 41.8px 33.4px #0000000d, 0 100px 80px #00000012;
+    transition-duration: 0.3s;
+}
+.active {
+    opacity: 1;
+}

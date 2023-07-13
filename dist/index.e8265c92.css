@@ -40,9 +40,43 @@ body {
   }
 }
 
+.todo-cnt {
+  flex-direction: column;
+  justify-content: space-evenly;
+  display: flex;
+}
+
+.todo-title {
+  text-align: center;
+  color: #fff;
+  margin-top: 2rem;
+}
+
+.scroll-top-btn {
+  opacity: 0;
+  z-index: 100;
+  width: 46px;
+  height: 46px;
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 50%;
+  transition-duration: .3s;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  box-shadow: 0 2.8px 2.2px #00000005, 0 6.7px 5.3px #00000007, 0 12.5px 10px #00000009, 0 22.3px 17.9px #0000000b, 0 41.8px 33.4px #0000000d, 0 100px 80px #00000012;
+}
+
+.active {
+  opacity: 1;
+}
+
 .form {
   background: #fff;
+  border-radius: 5px;
   grid-area: form;
+  margin: 0 1rem;
   padding: 2rem;
   font-family: sans-serif;
   box-shadow: 0 2.8px 2.2px #00000005, 0 6.7px 5.3px #00000007, 0 12.5px 10px #00000009, 0 22.3px 17.9px #0000000b, 0 41.8px 33.4px #0000000d, 0 100px 80px #00000012;
@@ -105,8 +139,13 @@ body {
 }
 
 .task-list-search {
+  width: 100%;
+  z-index: 10;
   grid-area: search;
   padding: 1rem;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .task-list-search input {
@@ -126,10 +165,19 @@ body {
 
 .task-list {
   scroll-behavior: smooth;
+  height: calc(100vh - 80px);
   grid-area: list;
+  margin-top: 80px;
+  padding-top: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  overflow-y: auto;
+  position: relative;
+  overflow-y: scroll;
+}
+
+.task-list-cnt {
+  height: 100vh;
+  position: relative;
 }
 
 .task {

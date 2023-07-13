@@ -1,9 +1,18 @@
 .task-list {
     grid-area: list;
+    padding-top: 1rem;
     padding-right: 1rem;
     padding-left: 1rem;
-    overflow-y: auto;
+    overflow-y: scroll;
     scroll-behavior: smooth;
+    position: relative;
+    height: calc(100vh - 80px);
+    margin-top:80px;
+
+}
+.task-list-cnt {
+    position: relative;
+    height: 100vh;
 }
 
 .task {

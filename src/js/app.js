@@ -46,10 +46,12 @@ document.addEventListener("click", async e => {
         const id = +task.dataset.id;
         try {
             const request = await apiDeleteTask(id);
-            store.taskList = store.taskList.filter(el => el.id !== id);
+
             const anim = task.animate([
-                {height: `${task.offsetHeight}px`},
-                {height: '0px'}
+                {height: `${task.offsetHeight}px`,
+                opacity: 1},
+                {height: '0px',
+                opacity: 0}
             ], {
                 duration: 300,
                 iterations: 1
@@ -121,5 +123,15 @@ const tHandler = debounced(500, async e => {
 const search = document.querySelector('#todoSearch');
 search.addEventListener('input', tHandler);
 
-
-
+//BUTTON SCROLL TOP
+const list = document.querySelector('.task-list');
+const scrollBtn = document.querySelector('.scroll-top-btn');
+const scrollHandler = debounced(300, async e => {
+    console.log(list.scrollTop);
+    if(list.scrollTop > 0) {
+        scrollBtn.classList.add('active');
+    } else {
+        scrollBtn.classList.remove('active');
+    }
+})
+list.addEventListener('scroll', scrollHandler)
