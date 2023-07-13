@@ -533,18 +533,85 @@ function hmrAcceptRun(bundle, id) {
 
 },{}],"8lRBv":[function(require,module,exports) {
 var _api = require("./_api");
+var _render = require("./_render");
 require("../scss/style.scss");
 (0, _api.apiGetTasks)().then((res)=>{
-    console.log(res);
+    (0, _render.renderTaskList)(res);
+});
+const form = document.querySelector("#todoForm");
+form.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+    const title = form.querySelector("#todoTitle").value;
+    const date = form.querySelector("#todoDate").value;
+    const body = form.querySelector("#todoMessage").value;
+    if (title && body) {
+        const dataElement = await (0, _api.apiAddTask)({
+            title,
+            date,
+            body
+        });
+        (0, _render.renderSingleTask)(dataElement);
+        form.reset();
+    } else {
+        if (!title) return alert("Wypełlnij tytuł");
+        else if (!body) return alert("Wypełnij zadanie");
+    }
+});
+document.addEventListener("click", async (e)=>{
+    // if clicked element has class task-delete
+    if (e.target.classList.contains("task-delete")) {
+        const task = e.target.closest(".task");
+        // get id of single already added task
+        const id = +task.dataset.id;
+        const request = await (0, _api.apiDeleteTask)(id);
+        const anim = task.animate([
+            {
+                height: `${task.offsetHeight}px`
+            },
+            {
+                height: "0px"
+            }
+        ], {
+            duration: 300,
+            iterations: 1
+        });
+        anim.onfinish = (e)=>{
+            task.remove();
+        };
+    }
 });
 
-},{"./_api":"7F0wf","../scss/style.scss":"fZrcq"}],"7F0wf":[function(require,module,exports) {
+},{"./_api":"7F0wf","../scss/style.scss":"fZrcq","./_render":"1y2lp"}],"7F0wf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "apiGetTasks", ()=>apiGetTasks);
+parcelHelpers.export(exports, "apiAddTask", ()=>apiAddTask);
+parcelHelpers.export(exports, "apiDeleteTask", ()=>apiDeleteTask);
 const apiUrl = "http://localhost:3000/tasks";
 async function apiGetTasks() {
     const request = await fetch(apiUrl);
+    if (request.ok) return request.json();
+    else throw Error(String(request.status));
+}
+async function apiAddTask({ title , date , body  }) {
+    const request = await fetch(apiUrl, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json;charset=utf-8"
+        },
+        body: JSON.stringify({
+            title,
+            date,
+            body
+        })
+    });
+    if (request.ok) return request.json();
+    else throw Error(String(request.status));
+}
+async function apiDeleteTask(id) {
+    const request = await fetch(apiUrl + "/" + id, {
+        method: "delete"
+    });
     if (request.ok) return request.json();
     else throw Error(String(request.status));
 }
@@ -579,6 +646,62 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"fZrcq":[function() {},{}]},["7ZoMj","8lRBv"], "8lRBv", "parcelRequire5af9")
+},{}],"fZrcq":[function() {},{}],"1y2lp":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getTaskHTML", ()=>getTaskHTML);
+parcelHelpers.export(exports, "renderSingleTask", ()=>renderSingleTask);
+parcelHelpers.export(exports, "renderTaskList", ()=>renderTaskList);
+const ul = document.querySelector(".task-list");
+function getTaskHTML(dataElement) {
+    const { date , title , body  } = dataElement;
+    return `
+        <div class="task-inside">
+            <div class="task-header">
+                <h3 class="task-date">${date}</h3>
+
+                <div class="task-actions">
+                    <button class="task-edit" title="Edytuj zadanie">
+                        Edytuj
+                    </button>
+                    <button class="task-delete" title="Usuń zadanie">
+                        Usuń
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="task-title">${title}</div>
+            </div>
+
+            <div class="row">
+                <div class="task-body">
+                    ${body}
+                </div>
+            </div>
+        </div>
+    `;
+}
+function renderSingleTask(dataElement) {
+    //create article, add class, set data-id as id from db;
+    const element = document.createElement("article");
+    element.classList.add("task");
+    element.dataset.id = dataElement.id;
+    //fill article with inherit html
+    element.innerHTML = getTaskHTML(dataElement);
+    ul.append(element);
+    //scroll to last added task
+    element.scrollIntoView({
+        behavior: "smooth"
+    });
+}
+function renderTaskList(tasks) {
+    ul.innerHTML = "";
+    tasks.forEach((dataElement)=>{
+        renderSingleTask(dataElement);
+    });
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["7ZoMj","8lRBv"], "8lRBv", "parcelRequire5af9")
 
 //# sourceMappingURL=index.59a40e7a.js.map
