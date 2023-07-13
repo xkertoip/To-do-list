@@ -15,7 +15,7 @@ export async function apiAddTask({title, date, body}) {
         headers: {
             "Content-Type" : "application/json;charset=utf-8"
         },
-        body: JSON.stringify({title, date, body})
+        body: JSON.stringify({ title, date, body})
     });
     if(request.ok) {
         return request.json();
@@ -32,5 +32,14 @@ export async function apiDeleteTask(id) {
         return request.json();
     } else {
         throw Error(String(request.status))
+    }
+}
+
+export async function apiSearchTasks(query) {
+    const request = await fetch(apiUrl + `?q=${query}`);
+    if(request.ok) {
+        return request.json();
+    } else {
+        throw Error(String(request.status));
     }
 }

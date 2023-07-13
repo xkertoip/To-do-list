@@ -1,8 +1,11 @@
+import {debounced} from "./_utility";
+
 require("../scss/style.scss");
-import {apiGetTasks, apiAddTask, apiDeleteTask} from "./_api";
+import {apiGetTasks, apiAddTask, apiDeleteTask, apiSearchTasks} from "./_api";
 import {renderTaskList, renderSingleTask} from "./_render";
 
 apiGetTasks().then(res => {
+    console.log(res);
     renderTaskList(res)
 })
 
@@ -45,5 +48,11 @@ document.addEventListener("click", async e => {
         }
     }
 });
-
+const tHandler = debounced(500, async e => {
+    console.log(search.value);
+    const tasks = await apiSearchTasks(search.value);
+    renderTaskList(tasks);
+})
+const search = document.querySelector('#todoSearch');
+search.addEventListener('input', tHandler);
 

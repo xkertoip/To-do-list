@@ -532,10 +532,12 @@ function hmrAcceptRun(bundle, id) {
 }
 
 },{}],"8lRBv":[function(require,module,exports) {
+var _utility = require("./_utility");
 var _api = require("./_api");
 var _render = require("./_render");
 require("../scss/style.scss");
 (0, _api.apiGetTasks)().then((res)=>{
+    console.log(res);
     (0, _render.renderTaskList)(res);
 });
 const form = document.querySelector("#todoForm");
@@ -580,13 +582,21 @@ document.addEventListener("click", async (e)=>{
         };
     }
 });
+const tHandler = (0, _utility.debounced)(500, async (e)=>{
+    console.log(search.value);
+    const tasks = await (0, _api.apiSearchTasks)(search.value);
+    (0, _render.renderTaskList)(tasks);
+});
+const search = document.querySelector("#todoSearch");
+search.addEventListener("input", tHandler);
 
-},{"./_api":"7F0wf","../scss/style.scss":"fZrcq","./_render":"1y2lp"}],"7F0wf":[function(require,module,exports) {
+},{"./_api":"7F0wf","../scss/style.scss":"fZrcq","./_render":"1y2lp","./_utility":"4221k"}],"7F0wf":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "apiGetTasks", ()=>apiGetTasks);
 parcelHelpers.export(exports, "apiAddTask", ()=>apiAddTask);
 parcelHelpers.export(exports, "apiDeleteTask", ()=>apiDeleteTask);
+parcelHelpers.export(exports, "apiSearchTasks", ()=>apiSearchTasks);
 const apiUrl = "http://localhost:3000/tasks";
 async function apiGetTasks() {
     const request = await fetch(apiUrl);
@@ -612,6 +622,11 @@ async function apiDeleteTask(id) {
     const request = await fetch(apiUrl + "/" + id, {
         method: "delete"
     });
+    if (request.ok) return request.json();
+    else throw Error(String(request.status));
+}
+async function apiSearchTasks(query) {
+    const request = await fetch(apiUrl + `?q=${query}`);
     if (request.ok) return request.json();
     else throw Error(String(request.status));
 }
@@ -700,6 +715,21 @@ function renderTaskList(tasks) {
     tasks.forEach((dataElement)=>{
         renderSingleTask(dataElement);
     });
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"4221k":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "debounced", ()=>debounced);
+function debounced(delay, fn) {
+    let timerId;
+    return function(...args) {
+        if (timerId) clearTimeout(timerId);
+        timerId = setTimeout(()=>{
+            fn(...args);
+            timerId = null;
+        }, delay);
+    };
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["7ZoMj","8lRBv"], "8lRBv", "parcelRequire5af9")
